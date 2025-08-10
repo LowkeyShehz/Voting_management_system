@@ -1,4 +1,5 @@
 // server.js - Node.js Express Server with MySQL - FIXED VERSION
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
@@ -13,13 +14,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// MySQL Database Configuration
+// MySQL Database Configuration - Using Environment Variables
 const dbConfig = {
-    host: 'localhost',
-    port: 3306, // Add this line
-    user: 'voting_user',
-    password: '1234',
-    database: 'voting_system'
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 3306,
+    user: process.env.DB_USER || 'voting_user',
+    password: process.env.DB_PASSWORD || '1234',
+    database: process.env.DB_NAME || 'voting_system'
 };
 
 // Database connection pool
